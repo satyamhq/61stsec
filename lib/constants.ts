@@ -12,10 +12,6 @@ export const BRAND = {
   email: 'hello@61stsec.com',
 } as const;
 
-// --- Countdown Target ---
-// Set to 61 days from the build date. Update this to your actual launch date.
-export const COUNTDOWN_TARGET = new Date('2026-10-02T00:00:00Z').getTime();
-
 // --- Hero Copy ---
 export const HERO_COPY = {
   title: '61STSEC',
@@ -51,10 +47,10 @@ export const STORY_SECTIONS = [
 
 // --- Interactive Choices ---
 export const INTERACTIVE_CHOICES = [
-  { id: 'beverage', label: 'Premium Beverage', icon: '🥂' },
-  { id: 'streetwear', label: 'Streetwear', icon: '🧥' },
-  { id: 'luxury', label: 'Luxury Brand', icon: '💎' },
-  { id: 'other', label: 'Something Else', icon: '✨' },
+  { id: 'beverage', label: 'Premium Beverage', icon: 'beverage' },
+  { id: 'streetwear', label: 'Streetwear', icon: 'streetwear' },
+  { id: 'luxury', label: 'Luxury Brand', icon: 'luxury' },
+  { id: 'other', label: 'Something Else', icon: 'sparkle' },
 ] as const;
 
 // --- Countries ---
@@ -98,7 +94,6 @@ export const RATE_LIMIT = {
 export const NAV_LINKS = [
   { label: 'Story', href: '#story' },
   { label: 'Discover', href: '#interactive' },
-  { label: 'Countdown', href: '#countdown' },
   { label: 'Join', href: '#waitlist' },
 ] as const;
 
@@ -106,7 +101,7 @@ export const NAV_LINKS = [
 export const SOCIAL_LINKS = [
   { label: 'Twitter / X', href: 'https://x.com/61stsec', icon: 'twitter' },
   { label: 'Instagram', href: 'https://instagram.com/61stsec', icon: 'instagram' },
-  { label: 'TikTok', href: 'https://tiktok.com/@61stsec', icon: 'tiktok' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/company/61stsec', icon: 'linkedin' },
 ] as const;
 
 // --- Konami Code ---

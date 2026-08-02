@@ -8,8 +8,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { FadeInText } from '@/components/ui/AnimatedText';
 import { RevealText } from '@/components/ui/AnimatedText';
+import { BeverageIcon, StreetwearIcon, LuxuryIcon, SparkleIcon } from '@/components/svg/Icons';
 import { INTERACTIVE_CHOICES } from '@/lib/constants';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
+
+const CHOICE_ICONS: Record<string, React.ReactNode> = {
+  beverage: <BeverageIcon size={32} className="text-white opacity-90 group-hover:opacity-100 transition-opacity" />,
+  streetwear: <StreetwearIcon size={32} className="text-white opacity-90 group-hover:opacity-100 transition-opacity" />,
+  luxury: <LuxuryIcon size={32} className="text-white opacity-90 group-hover:opacity-100 transition-opacity" />,
+  sparkle: <SparkleIcon size={32} className="text-white opacity-90 group-hover:opacity-100 transition-opacity" />,
+};
 
 const RESPONSES: Record<string, { headline: string; subtext: string }> = {
   beverage: {
@@ -74,9 +82,9 @@ export function InteractiveSection() {
                     onClick={() => handleSelect(choice.id)}
                     className="p-6 text-center group"
                   >
-                    <span className="text-3xl mb-3 block transition-transform duration-300 group-hover:scale-125">
-                      {choice.icon}
-                    </span>
+                    <div className="mb-3 flex justify-center items-center h-10 transition-transform duration-300 group-hover:scale-125">
+                      {CHOICE_ICONS[choice.icon]}
+                    </div>
                     <span className="text-white/80 font-medium text-base tracking-wide group-hover:text-white transition-colors">
                       {choice.label}
                     </span>

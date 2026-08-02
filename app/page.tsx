@@ -9,7 +9,6 @@ import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { StorySection } from '@/components/sections/StorySection';
 import { InteractiveSection } from '@/components/sections/InteractiveSection';
-import { CountdownSection } from '@/components/sections/CountdownSection';
 import { WaitlistSection } from '@/components/sections/WaitlistSection';
 import { FooterSection } from '@/components/sections/FooterSection';
 import { AchievementToast } from '@/components/ui/Toast';
@@ -60,7 +59,6 @@ export default function Home() {
             <HeroSection onLogoClick={handleLogoClick} />
             <StorySection />
             <InteractiveSection />
-            <CountdownSection />
             <WaitlistSection />
           </main>
 

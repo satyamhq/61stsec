@@ -4,7 +4,7 @@
 // ============================================================
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { XIcon, CheckIcon, SparkleIcon } from '@/components/svg/Icons';
+import { XIcon, CheckIcon, SparkleIcon, TrophyIcon } from '@/components/svg/Icons';
 import type { ToastMessage } from '@/types';
 
 interface ToastProps {
@@ -75,7 +75,7 @@ export function AchievementToast({ achievement, onDismiss }: AchievementToastPro
         >
           <div className="px-6 py-4 rounded-2xl bg-gradient-to-r from-accent-blue/10 to-accent-gold/10 backdrop-blur-xl border border-accent-blue/20 shadow-[0_8px_32px_rgba(0,102,255,0.15)]">
             <div className="flex items-start gap-3">
-              <span className="text-xl">🏆</span>
+              <TrophyIcon size={20} className="text-white mt-0.5" />
               <div className="flex-1">
                 <p className="text-sm font-semibold text-white">{achievement.title}</p>
                 <p className="text-xs text-white/60 mt-0.5">{achievement.message}</p>

@@ -11,7 +11,7 @@ import { MagneticButton } from '@/components/ui/MagneticButton';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Toast } from '@/components/ui/Toast';
 import { RevealText, FadeInText } from '@/components/ui/AnimatedText';
-import { SparkleIcon, CheckIcon } from '@/components/svg/Icons';
+import { SparkleIcon, CheckIcon, LockIcon } from '@/components/svg/Icons';
 import { validateWaitlistForm, sanitizeInput } from '@/lib/validators';
 import { COUNTRIES } from '@/lib/constants';
 import { fadeInUp } from '@/lib/animations';
@@ -207,8 +207,9 @@ export function WaitlistSection() {
                   </MagneticButton>
                 </div>
 
-                <p className="text-center text-xs text-white/20 mt-4">
-                  🔒 Your data is encrypted and never shared.
+                <p className="flex items-center justify-center gap-1.5 text-center text-xs text-white/30 mt-4">
+                  <LockIcon size={13} className="text-white/40" />
+                  <span>Your data is encrypted and never shared.</span>
                 </p>
               </form>
             </GlassCard>

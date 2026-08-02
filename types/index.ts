@@ -54,7 +54,6 @@ export type AnalyticsEventType =
   | 'waitlist_submit'
   | 'waitlist_success'
   | 'waitlist_error'
-  | 'countdown_interaction'
   | 'interactive_selection'
   | 'vault_attempt'
   | 'easter_egg'
@@ -66,14 +65,6 @@ export type BrandGuess =
   | 'Streetwear'
   | 'Luxury Brand'
   | 'Something Else';
-
-// --- Countdown ---
-export interface CountdownTime {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
 
 // --- Toast ---
 export interface ToastMessage {
