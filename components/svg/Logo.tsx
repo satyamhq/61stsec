@@ -3,7 +3,7 @@
 // 61STSEC — Logo SVG Component
 // ============================================================
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 
 interface LogoProps {
   className?: string;
@@ -18,17 +18,17 @@ const sizeMap = {
   lg: { width: 320, height: 74 },
 };
 
+const pathVariants: Variants = {
+  hidden: { pathLength: 0, opacity: 0 },
+  visible: {
+    pathLength: 1,
+    opacity: 1,
+    transition: { duration: 2, ease: 'easeInOut' },
+  },
+};
+
 export function Logo({ className = '', animated = false, size = 'md', onClick }: LogoProps) {
   const { width, height } = sizeMap[size];
-
-  const pathVariants = {
-    hidden: { pathLength: 0, opacity: 0 },
-    visible: {
-      pathLength: 1,
-      opacity: 1,
-      transition: { duration: 2, ease: 'easeInOut' },
-    },
-  };
 
   return (
     <motion.svg
