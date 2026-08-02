@@ -101,7 +101,7 @@ export const NAV_LINKS = [
 export const SOCIAL_LINKS = [
   { label: 'Twitter / X', href: 'https://x.com/61stsec', icon: 'twitter' },
   { label: 'Instagram', href: 'https://instagram.com/61stsec', icon: 'instagram' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/company/61stsec', icon: 'linkedin' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/61st-sec/people/', icon: 'linkedin' },
 ] as const;
 
 // --- Konami Code ---
