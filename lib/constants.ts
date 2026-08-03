@@ -50,7 +50,6 @@ export const DROP_CONFIG = {
   status: 'DROPPING SOON',
   headline: 'Dropping Soon',
   subtext: 'Every minute has 60 seconds. The best moments happen when least expected.',
-  badge: 'INITIAL ALLOCATION // LIMITED ACCESS',
 } as const;
 
 // --- Countries ---
