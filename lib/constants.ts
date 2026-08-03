@@ -45,13 +45,13 @@ export const STORY_SECTIONS = [
   },
 ] as const;
 
-// --- Interactive Choices ---
-export const INTERACTIVE_CHOICES = [
-  { id: 'beverage', label: 'Premium Beverage', icon: 'beverage' },
-  { id: 'streetwear', label: 'Streetwear', icon: 'streetwear' },
-  { id: 'luxury', label: 'Luxury Brand', icon: 'luxury' },
-  { id: 'other', label: 'Something Else', icon: 'sparkle' },
-] as const;
+// --- Drop Configuration ---
+export const DROP_CONFIG = {
+  status: 'DROPPING SOON',
+  headline: 'Dropping Soon',
+  subtext: 'Every minute has 60 seconds. The best moments happen when least expected.',
+  badge: 'INITIAL ALLOCATION // LIMITED ACCESS',
+} as const;
 
 // --- Countries ---
 export const COUNTRIES = [
@@ -93,7 +93,7 @@ export const RATE_LIMIT = {
 // --- Navigation ---
 export const NAV_LINKS = [
   { label: 'Story', href: '#story' },
-  { label: 'Discover', href: '#interactive' },
+  { label: 'Drop', href: '#interactive' },
   { label: 'Join', href: '#waitlist' },
 ] as const;
 

@@ -59,12 +59,11 @@ export type AnalyticsEventType =
   | 'easter_egg'
   | 'audio_toggle';
 
-// --- Interactive Section ---
-export type BrandGuess =
-  | 'Premium Beverage'
-  | 'Streetwear'
-  | 'Luxury Brand'
-  | 'Something Else';
+// --- Drop Section ---
+export interface DropState {
+  status: string;
+  isNotified?: boolean;
+}
 
 // --- Toast ---
 export interface ToastMessage {

@@ -1,151 +1,126 @@
 'use client';
 // ============================================================
-// 61STSEC — Interactive Section
+// 61STSEC — Dropping Soon Section
 // ============================================================
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { GlassCard } from '@/components/ui/GlassCard';
-import { FadeInText } from '@/components/ui/AnimatedText';
-import { RevealText } from '@/components/ui/AnimatedText';
-import { BeverageIcon, StreetwearIcon, LuxuryIcon, SparkleIcon } from '@/components/svg/Icons';
-import { INTERACTIVE_CHOICES } from '@/lib/constants';
+import { FadeInText, RevealText } from '@/components/ui/AnimatedText';
+import { MagneticButton } from '@/components/ui/MagneticButton';
+import { SparkleIcon, ArrowRight, ClockIcon } from '@/components/svg/Icons';
+import { DROP_CONFIG } from '@/lib/constants';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
-const CHOICE_ICONS: Record<string, React.ReactNode> = {
-  beverage: <BeverageIcon size={32} className="text-white opacity-90 group-hover:opacity-100 transition-opacity" />,
-  streetwear: <StreetwearIcon size={32} className="text-white opacity-90 group-hover:opacity-100 transition-opacity" />,
-  luxury: <LuxuryIcon size={32} className="text-white opacity-90 group-hover:opacity-100 transition-opacity" />,
-  sparkle: <SparkleIcon size={32} className="text-white opacity-90 group-hover:opacity-100 transition-opacity" />,
-};
-
-const RESPONSES: Record<string, { headline: string; subtext: string }> = {
-  beverage: {
-    headline: 'Close.',
-    subtext: "We appreciate taste — but we're not a drink.",
-  },
-  streetwear: {
-    headline: 'Warmer.',
-    subtext: 'Style matters to us, but we go deeper.',
-  },
-  luxury: {
-    headline: 'Getting there.',
-    subtext: 'Luxury is a mindset, not a price tag.',
-  },
-  other: {
-    headline: 'Exactly.',
-    subtext: "We're all of this. And none of it.",
-  },
-};
-
 export function InteractiveSection() {
-  const [selected, setSelected] = useState<string | null>(null);
-
-  const handleSelect = (choiceId: string) => {
-    if (selected) return; // Prevent re-selection
-    setSelected(choiceId);
+  const scrollToWaitlist = () => {
+    document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const response = selected ? RESPONSES[selected] : null;
-
   return (
-    <section id="interactive" className="section-padding relative">
-      <div className="max-w-4xl mx-auto px-6">
+    <section id="interactive" className="section-padding relative overflow-hidden">
+      {/* Background glow orb */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full animate-pulse-glow"
+          style={{
+            background: 'radial-gradient(circle, rgba(0,102,255,0.08) 0%, rgba(201,168,76,0.04) 50%, transparent 70%)',
+          }}
+        />
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
+        {/* Status Badge */}
+        <div className="flex justify-center mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md text-xs font-mono text-white/70 tracking-widest uppercase"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0066ff] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0066ff]"></span>
+            </span>
+            {DROP_CONFIG.badge}
+          </motion.div>
+        </div>
+
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <RevealText
             as="h2"
-            className="text-3xl md:text-5xl font-display font-bold tracking-tight text-white mb-4"
+            className="text-4xl md:text-6xl font-display font-bold tracking-tight text-white mb-4"
           >
-            What do you think we are?
+            {DROP_CONFIG.headline}
           </RevealText>
           <FadeInText delay={0.3}>
-            <p className="text-white/40 text-lg">Take your best guess.</p>
+            <p className="text-white/50 text-lg md:text-xl max-w-xl mx-auto font-light leading-relaxed">
+              {DROP_CONFIG.subtext}
+            </p>
           </FadeInText>
         </div>
 
-        {/* Choices grid */}
-        <AnimatePresence mode="wait">
-          {!selected ? (
-            <motion.div
-              key="choices"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-100px' }}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto"
-            >
-              {INTERACTIVE_CHOICES.map((choice) => (
-                <motion.div key={choice.id} variants={fadeInUp}>
-                  <GlassCard
-                    hover
-                    onClick={() => handleSelect(choice.id)}
-                    className="p-6 text-center group"
-                  >
-                    <div className="mb-3 flex justify-center items-center h-10 transition-transform duration-300 group-hover:scale-125">
-                      {CHOICE_ICONS[choice.icon]}
-                    </div>
-                    <span className="text-white/80 font-medium text-base tracking-wide group-hover:text-white transition-colors">
-                      {choice.label}
-                    </span>
-                  </GlassCard>
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.div
-              key="response"
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-center max-w-xl mx-auto"
-            >
-              <GlassCard glow className="p-12">
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
-                  className="text-4xl md:text-5xl font-display font-bold text-white mb-4"
-                >
-                  {response?.headline}
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.7, duration: 0.6 }}
-                  className="text-white/50 text-lg leading-relaxed"
-                >
-                  {response?.subtext}
-                </motion.p>
-                <motion.div
-                  initial={{ opacity: 0, scaleX: 0 }}
-                  animate={{ opacity: 1, scaleX: 1 }}
-                  transition={{ delay: 1.1, duration: 0.8 }}
-                  className="mt-8 h-px bg-gradient-to-r from-transparent via-accent-blue/30 to-transparent"
-                />
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.5, duration: 0.6 }}
-                  className="mt-6 text-sm text-white/30 tracking-widest uppercase font-mono"
-                >
-                  The 61st second defies categories
-                </motion.p>
-              </GlassCard>
+        {/* Feature Teaser Cards */}
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12"
+        >
+          <motion.div variants={fadeInUp}>
+            <GlassCard glow hover className="p-6 text-center h-full flex flex-col items-center justify-between">
+              <div className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center mb-4 text-[#0066ff]">
+                <ClockIcon size={20} />
+              </div>
+              <div>
+                <h3 className="text-white font-display font-semibold text-lg mb-1">061 EDITION</h3>
+                <p className="text-white/40 text-xs font-mono tracking-wider uppercase">Vault Allocation</p>
+              </div>
+            </GlassCard>
+          </motion.div>
 
-              {/* Reset option */}
-              <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 0.5 }}
-                onClick={() => setSelected(null)}
-                className="mt-6 text-sm text-white/20 hover:text-white/50 transition-colors cursor-pointer"
-              >
-                Try another guess
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          <motion.div variants={fadeInUp}>
+            <GlassCard glow hover className="p-6 text-center h-full flex flex-col items-center justify-between border-white/20">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#0066ff]/20 to-[#c9a84c]/20 border border-white/20 flex items-center justify-center mb-4 text-[#c9a84c]">
+                <SparkleIcon size={20} />
+              </div>
+              <div>
+                <h3 className="text-white font-display font-semibold text-lg mb-1">UNBOXING NEXT</h3>
+                <p className="text-white/40 text-xs font-mono tracking-wider uppercase">Beyond Categories</p>
+              </div>
+            </GlassCard>
+          </motion.div>
+
+          <motion.div variants={fadeInUp}>
+            <GlassCard glow hover className="p-6 text-center h-full flex flex-col items-center justify-between">
+              <div className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center mb-4 text-white/80">
+                <ArrowRight size={20} />
+              </div>
+              <div>
+                <h3 className="text-white font-display font-semibold text-lg mb-1">FIRST 61 ACCESS</h3>
+                <p className="text-white/40 text-xs font-mono tracking-wider uppercase">Priority Invite Only</p>
+              </div>
+            </GlassCard>
+          </motion.div>
+        </motion.div>
+
+        {/* CTA button to waitlist */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="flex justify-center"
+        >
+          <MagneticButton onClick={scrollToWaitlist} variant="primary">
+            <span className="flex items-center gap-2">
+              Get Notified When It Drops
+              <ArrowRight size={16} />
+            </span>
+          </MagneticButton>
+        </motion.div>
       </div>
     </section>
   );
