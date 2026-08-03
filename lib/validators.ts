@@ -21,26 +21,11 @@ export function validateEmail(email: string): ValidationResult {
     return { valid: false, error: 'Email is too long.' };
   }
 
-  // RFC 5322 simplified
-  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  // Standard email validation pattern
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailRegex.test(trimmed)) {
     return { valid: false, error: 'Please enter a valid email address.' };
-  }
-
-  // Check for common disposable email domains
-  const disposableDomains = [
-    'mailinator.com',
-    'guerrillamail.com',
-    'tempmail.com',
-    'throwaway.email',
-    'yopmail.com',
-    'sharklasers.com',
-  ];
-
-  const domain = trimmed.split('@')[1];
-  if (disposableDomains.includes(domain)) {
-    return { valid: false, error: 'Please use a permanent email address.' };
   }
 
   return { valid: true };
@@ -56,18 +41,8 @@ export function validateFirstName(name: string): ValidationResult {
 
   const trimmed = name.trim();
 
-  if (trimmed.length < 2) {
-    return { valid: false, error: 'Name must be at least 2 characters.' };
-  }
-
   if (trimmed.length > 50) {
     return { valid: false, error: 'Name must be less than 50 characters.' };
-  }
-
-  // Only allow letters, spaces, hyphens, apostrophes
-  const nameRegex = /^[a-zA-ZÀ-ÿ\s'-]+$/;
-  if (!nameRegex.test(trimmed)) {
-    return { valid: false, error: 'Name contains invalid characters.' };
   }
 
   return { valid: true };
@@ -90,7 +65,7 @@ export function sanitizeInput(input: string): string {
 export function validateWaitlistForm(data: {
   email: string;
   firstName: string;
-  consent: boolean;
+  consent?: boolean;
 }): { valid: boolean; errors: Record<string, string> } {
   const errors: Record<string, string> = {};
 
@@ -102,10 +77,6 @@ export function validateWaitlistForm(data: {
   const nameResult = validateFirstName(data.firstName);
   if (!nameResult.valid && nameResult.error) {
     errors.firstName = nameResult.error;
-  }
-
-  if (!data.consent) {
-    errors.consent = 'You must agree to receive updates.';
   }
 
   return {
